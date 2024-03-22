@@ -1,0 +1,76 @@
+<div *ngFor="let item of singleBlog">
+    <section class="post-header">
+        <div class="header-content post-container">
+        <a [routerLink]="['/']" class="back-home">Back To Home</a>
+        <h1 class="header-title">{{item.title}}</h1>
+        <span class="read-time">{{item.content | readTime}}</span>
+        <img src={{item.image}} alt="" class="header-img">
+        </div>
+    </section>
+    <section class="post-content post-container">
+        <div [innerHTML]="item.content"></div>
+    </section>
+</div>
+
+
+<div class="share post-container">
+    <span class="share-title">Share this article</span>
+    <div class="social">
+    <a href="#"><i class='bx bxl-facebook'></i></a>
+    <a href="#"><i class='bx bxl-twitter'></i></a>
+    <a href="#"><i class='bx bxl-instagram'></i></a>
+    <a href="#"><i class='bx bxl-linkedin' ></i></a>
+    </div>
+</div>
+<section class="post-container">
+    <span class="post-comment">Comments</span>
+    <ul class="comment-container" *ngIf="comments.length > 0; else noComments ">
+        <li *ngFor="let comment of comments">
+            <div class="comments-wrapper">
+                <div class="profile">
+                    <img src="https://picsum.photos/100" alt="#" class="profile-img">
+                    <span class="profile-name">{{comment.user}}</span>
+                </div>
+                <div class="comment-content">{{comment.content}}</div>
+            </div>
+        </li>
+    </ul>
+    <ng-template #noComments>
+        <div class="no-comments">No Comments</div>
+    </ng-template>
+    <div class="comment-box">
+        <!-- <form [formGroup]="commentForm">
+            <div class="box-wrapper">
+                <input type="text" formControlName="comment" id="comment" class="form-control">
+            </div>
+        </form> -->
+        <button class="comment-button" onclick="window.dialog.showModal();">Comment</button>
+        <dialog id="dialog">
+            <h2>Write a Comment</h2>
+            <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+                <div class="form">
+                    <div class="input-container ic1">
+                        <input formControlName="user" id="user" class="input form-control" type="text" placeholder=" " />
+                        <div class="error-container" *ngIf="f.user.invalid && f.user.touched">
+                            <span class="error custom-error-message" *ngIf="f.user.errors?.required">Required field</span>
+                            <span class="error custom-error-message" *ngIf="f.user.errors?.minlength">First Name must be at least more than 3 letters</span>
+                        </div>
+                    <div class="cut"></div>
+                        <label for="user" class="placeholder">Name</label>
+                    </div>
+                    <div class="input-container ic2">
+                        <input formControlName="content" id="content" class="input form-control" type="text" placeholder=" " />
+                        <div class="error-container" *ngIf="f.content.invalid && f.content.touched">
+                            <span class="error custom-error-message" *ngIf="f.content.errors?.required">Required field</span>
+                            <span class="error custom-error-message" *ngIf="f.content.errors?.minlength">Comment must be at least more than 3 letters</span>
+                        </div>
+                    <div class="cut cut-short"></div>
+                        <label for="content" class="placeholder">Comment</label>
+                    </div>
+                    <button type="submit" class="submit" [disabled]="!commentForm.valid">Submit</button>
+                </div>
+            </form>
+            <button onclick="window.dialog.close();" aria-label="close" class="bx x">❌</button>
+        </dialog>
+    </div>
+</section>

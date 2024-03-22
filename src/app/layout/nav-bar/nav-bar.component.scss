@@ -1,0 +1,30 @@
+header{
+    position: fixed;
+    top: 0;
+    left:0;
+    width: 100%;
+    z-index: 200;
+    background-color: var(--bg-color);
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+}
+.logo{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.login{
+    padding: 8px 14px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    font-weight: 500;
+    background: var(--secondary-color);
+    color: var(--bg-color);
+}
+.login:hover{
+    background: hsl(24,98%,58%);
+}
