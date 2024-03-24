@@ -44,16 +44,14 @@ export class BlogSectionComponent implements OnInit {
     });
   }
 
-  constructor(private blog_service:BlogService) { 
-    // Sort blogs by date on component initialization
-    this.sortBlogsByDate();
-  }
+  constructor(private blog_service:BlogService) { }
 
   ngOnInit(): void {
     this.blog_service.getBlogs()
       .subscribe(
         data => {
           this.blogs = data
+          this.sortBlogsByDate()
       }
     )
   }

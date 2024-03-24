@@ -23,8 +23,34 @@
     </div>
 </div>
 <section class="post-container">
+    <div class="comment-wrapper">
+    <span class="share-title">Add a Comment</span>
+        <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+            <div class="form comment-wrapper">
+                <div class="input-container ic1">
+                    <input formControlName="user" id="user" class="input form-control" type="text" placeholder=" " />
+                    <div class="error-container" *ngIf="f.user.invalid && f.user.touched">
+                        <span class="error custom-error-message" *ngIf="f.user.errors?.required">Required field</span>
+                        <span class="error custom-error-message" *ngIf="f.user.errors?.minlength">First Name must be at least more than 3 letters</span>
+                    </div>
+                <div class="cut"></div>
+                    <label for="user" class="placeholder">Name</label>
+                </div>
+                <div class="input-container ic2">
+                    <input formControlName="content" id="content" class="input form-control" type="text" placeholder=" " />
+                    <div class="error-container" *ngIf="f.content.invalid && f.content.touched">
+                        <span class="error custom-error-message" *ngIf="f.content.errors?.required">Required field</span>
+                        <span class="error custom-error-message" *ngIf="f.content.errors?.minlength">Comment must be at least more than 3 letters</span>
+                    </div>
+                <div class="cut cut-short"></div>
+                    <label for="content" class="placeholder">Comment</label>
+                </div>
+                <button *ngIf="commentForm.valid" type="submit" @fadeIn class="submit smooth-appear-button">Submit</button>
+            </div>
+        </form>
+    </div>
     <span class="post-comment">Comments</span>
-    <ul class="comment-container" *ngIf="comments.length > 0; else noComments ">
+    <ul class="comment-container" *ngIf="comments?.length; else noComments ">
         <li *ngFor="let comment of comments">
             <div class="comments-wrapper">
                 <div class="profile">
@@ -39,38 +65,5 @@
         <div class="no-comments">No Comments</div>
     </ng-template>
     <div class="comment-box">
-        <!-- <form [formGroup]="commentForm">
-            <div class="box-wrapper">
-                <input type="text" formControlName="comment" id="comment" class="form-control">
-            </div>
-        </form> -->
-        <button class="comment-button" onclick="window.dialog.showModal();">Comment</button>
-        <dialog id="dialog">
-            <h2>Write a Comment</h2>
-            <form [formGroup]="commentForm" (ngSubmit)="addComment()">
-                <div class="form">
-                    <div class="input-container ic1">
-                        <input formControlName="user" id="user" class="input form-control" type="text" placeholder=" " />
-                        <div class="error-container" *ngIf="f.user.invalid && f.user.touched">
-                            <span class="error custom-error-message" *ngIf="f.user.errors?.required">Required field</span>
-                            <span class="error custom-error-message" *ngIf="f.user.errors?.minlength">First Name must be at least more than 3 letters</span>
-                        </div>
-                    <div class="cut"></div>
-                        <label for="user" class="placeholder">Name</label>
-                    </div>
-                    <div class="input-container ic2">
-                        <input formControlName="content" id="content" class="input form-control" type="text" placeholder=" " />
-                        <div class="error-container" *ngIf="f.content.invalid && f.content.touched">
-                            <span class="error custom-error-message" *ngIf="f.content.errors?.required">Required field</span>
-                            <span class="error custom-error-message" *ngIf="f.content.errors?.minlength">Comment must be at least more than 3 letters</span>
-                        </div>
-                    <div class="cut cut-short"></div>
-                        <label for="content" class="placeholder">Comment</label>
-                    </div>
-                    <button type="submit" class="submit" [disabled]="!commentForm.valid">Submit</button>
-                </div>
-            </form>
-            <button onclick="window.dialog.close();" aria-label="close" class="bx x">❌</button>
-        </dialog>
     </div>
 </section>
