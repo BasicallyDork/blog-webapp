@@ -3,15 +3,17 @@
 </div>
 <section class="post container">
     <div class="post-box" *ngFor="let blog of filteredBlogs">
-        <img src={{blog.image}} alt="#" class="post-img">
+        <a [routerLink]="[blog.slug]">
+            <img src={{blog.image}} alt="#" class="post-img">
         <h2 class="category">{{blog.category}}</h2>
-        <a [routerLink]="[blog.slug]" class="post-title">{{blog.title}}</a>
+        <span class="post-title">{{blog.title}}</span>
         <span class="post-date">{{blog.publish_date | date :  "dd MMM yyyy" }}</span>
         <p class="post-description">{{blog.description}}</p>
         <div class="profile">
             <img src={{blog.author_image}} alt="#" class="profile-img">
             <span class="profile-name">{{blog.author}}</span>
         </div>
+        </a>
     </div>
 </section>
 <!-- <ul>

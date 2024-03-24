@@ -186,11 +186,11 @@ dialog {
   }
   
   .ic1 {
-    margin-top: 40px;
+    margin-top: 30px;
   }
   
   .ic2 {
-    margin-top: 50px;
+    margin-top: 30px;
   }
   
   .input {
@@ -266,7 +266,17 @@ dialog {
     margin-top: 38px;
     // outline: 0;
     text-align: center;
-    width: 100%;
+    width: 50%;
+    transition: all;
+  }
+  .smooth-appear-button{
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .smooth-appear-button.ng-star-inserted {
+    opacity: 1;
+    transform: translateY(0);
   }
   
   .submit:active {
@@ -284,4 +294,10 @@ dialog {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .comment-wrapper{
+    max-width: 350px;
+    margin: auto;
+    width: 100%;
+    text-align: center;
   }

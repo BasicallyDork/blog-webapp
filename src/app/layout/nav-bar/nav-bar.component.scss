@@ -5,6 +5,7 @@ header{
     width: 100%;
     z-index: 200;
     background-color: var(--bg-color);
+    box-shadow: 0 6px 7px 0 rgba(0,0,0,.3);
 }
 .navbar{
     display: flex;
