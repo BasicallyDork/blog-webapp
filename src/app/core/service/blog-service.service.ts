@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Blog } from '../models/blog';
 import { environment } from 'src/environments/environment';
+import { Comments } from '../models/comments';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,9 +18,9 @@ export class BlogService {
     let queryParams = new HttpParams().append("slug",slug);
     return this.http.get<Blog[]>(this._url+'/posts',{params : queryParams});
   }
-  getBlogComments(id: number):Observable<Comment[]> {
+  getBlogComments(id: number):Observable<Comments[]> {
     let queryParams = new HttpParams().append("postId",id);
-    return this.http.get<Comment[]>(this._url+'/comments',{params : queryParams});
+    return this.http.get<Comments[]>(this._url+'/comments',{params : queryParams});
   }
   addBlogComment(data: any):Observable<any> {
     return this.http.post(this._url+'/comments',data);

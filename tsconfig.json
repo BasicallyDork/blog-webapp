@@ -2,10 +2,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "esModuleInterop": true,
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictPropertyInitialization": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
@@ -17,6 +20,9 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
+    "types": [
+      "jest"
+    ],
     "module": "es2020",
     "lib": [
       "es2020",
