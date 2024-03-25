@@ -2,10 +2,13 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { BlogService } from 'src/app/core/service/blog-service.service';
 import { CommonService } from 'src/app/core/service/common.service';
 import { formatDate } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Comments } from 'src/app/core/models/comments';
 @Component({
   selector: 'app-blog-page',
   templateUrl: './blog-page.component.html',
@@ -20,9 +23,10 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ],
 })
 export class BlogPageComponent implements OnInit {
-  url: any;
-  post_Id: any;
-  comments: any;
+  private destroy$ = new Subject<void>();
+  url: string;
+  post_Id: number;
+  comments: Comments[];
   singleBlog: any;
   commentForm!: FormGroup
   currentDate: Date = new Date();
@@ -80,12 +84,16 @@ export class BlogPageComponent implements OnInit {
   addComment() {
     if (this.commentForm.invalid) return;
     this._bs.addBlogComment(this.commentForm.value)
-      .subscribe(r => {
-        this.commentForm.get('user')?.reset() ?? console.warn('User control not found');
-        this.commentForm.get('content')?.reset() ?? console.warn('Content control not found');
-        this.commentForm.get('id')?.setValue(Math.floor(Math.random() * 500000)) ?? console.warn('ID control not found');
-        this.loadComments();
-    })
+      .pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      this.loadComments();
+      this.commentForm.reset({
+        id: Math.floor(Math.random() * 500000),
+        postId: this.post_Id,
+        parent_id: null,
+        date: formatDate(new Date(),'yyyy-MM-dd',"en-US")
+      });
+    });
   }
 // ------------------FOR SEO--------------------
   setSEOParam(data: { title: string; google_tags: { meta_keywords: any; meta_description: any; }; }){
